@@ -1,7 +1,7 @@
 const Telegraf = require("telegraf");
 const app = new Telegraf("430018492:AAHiWOE74uDCBFQyqqnruUTSxeBs16qE0Zw");
 
-const API_TOKEN = process.env.API_TOKEN || '430018492:AAHiWOE74uDCBFQyqqnruUTSxeBs16qE0Zw';
+const API_TOKEN = process.env.API_TOKEN || '';
 const PORT = process.env.PORT || 3000;
 const URL = process.env.URL || 'https://revolution-tg-bot.herokuapp.com/';
 
