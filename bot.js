@@ -1,12 +1,7 @@
+const express = require('express');
 const Telegraf = require("telegraf");
 const app = new Telegraf("430018492:AAHiWOE74uDCBFQyqqnruUTSxeBs16qE0Zw");
-
-const API_TOKEN = process.env.API_TOKEN || '';
-const PORT = process.env.PORT || 3000;
-const URL = process.env.URL || 'https://revolution-tg-bot.herokuapp.com/';
-
-app.telegram.setWebhook(`${URL}/bot${API_TOKEN}`);
-app.startWebhook(`/bot${API_TOKEN}`, null, PORT)
+const exp = express();
 
 var counter = {
 	bot_pidor: 0,
@@ -17,6 +12,14 @@ var counter = {
 	call_org: 0,
 	games: 0
 }
+
+let resps = [ "Яна (HR) t.me/yanahata",  
+			  "Ендрю (Task Responsible) t.me/Andrewchopko",
+			  "Денис (Main Organizer) t.me/den_honcharuk",
+			  "Олена (Organizer) t.me/goodfiddler",
+			  "Оксана (Organizer) t.me/coffee_drinker",
+			  "Дем'ян (Organizer) t.me/sdsvin" ];
+
 
 app.hears('hi', ctx => {
 	return ctx.reply("Hey!");
@@ -64,19 +67,14 @@ app.command('time@it_revolution17_bot', ctx => {
 	return ctx.replyWithMarkdown(msToTime(time_in_mils));
 });
 
-let resps = [ "Яночка (Головний HR всьої цьої вакханалії) t.me/yanahata",  
-			  "Ендрю (Відповідальний за завдання) t.me/Andrewchopko",
-			  "Дениско (Головний Організатор) t.me/den_honcharuk",
-			  "Оленка (Головний челавек) t.me/goodfiddler",
-			  "Оксана (Головний челавек) t.me/coffee_drinker",
-			  "Дем'ян (Головний логіст) t.me/sdsvin" ];
-
 app.command('call_org@it_revolution17_bot', ctx => {
 	counter.call_org++;
 	resps.forEach(function(element){
 		return ctx.reply(element);
 	});
 });
+
+app.on('sticker', (ctx) => ctx.reply('👍'))
 
 function msToTime(duration) {
         var milliseconds = parseInt((duration%1000)/100)
@@ -94,3 +92,4 @@ function msToTime(duration) {
 }
 
 app.startPolling();
+exp.listen(3000, () => console.log("Server on 3000!"));
