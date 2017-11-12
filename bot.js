@@ -91,5 +91,7 @@ function msToTime(duration) {
         return days + " днів " + hours + " годин " + minutes + " хвилин " + seconds + " секунд до кінця хакатону";
 }
 
+exp.get('/', (req, res) => res.send('Hello World!'));
+
 app.startPolling();
-exp.listen(3000, () => console.log("Server on 3000!"));
+exp.listen(process.env.PORT || 5000, () => console.log("Server on 3000!"));
