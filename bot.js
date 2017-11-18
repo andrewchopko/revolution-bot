@@ -21,6 +21,9 @@ let resps = [ "Яна (HR) t.me/yanahata",
 			  "Дем'ян (Organizer) t.me/sdsvin" ];
 
 
+var game_responses = ["можливо варто покодити?", "краще випий кави.", "з'їж печивко!", "подумай краще, чи потрібні тобі ігри зараз?", "для чого тобі це, скажи організаторам чи подобається тобі хакатон :)"];
+
+
 app.hears('hi', ctx => {
 	return ctx.reply("Hey!");
 	counter.hi++;
@@ -34,22 +37,23 @@ app.command('bot_pidor@it_revolution17_bot', ctx => {
 
 app.command('task_web@it_revolution17_bot', ctx => {
 	counter.task_web++;
-	return ctx.replyWithMarkdown(ctx.message.from.username + ", скоро буде завдання!");
+	return ctx.replyWithMarkdown("У сучасному світі нас оточує величезна кількість інформації. Кожен день, коли ми намагаємося знайти щось цікаве і актуальне, нам доводиться витрачати багато часу на перегляд контенту для вибірки того, що цікавить нас. У багатьох сферах (кіно, музика, спорт ...) цю проблему можна вирішити використовуючи систему рейтингів. Таким чином Ваше завдання полягає в побудові додатку з детальною інформацією обраної предметної області, в якому є система рейтингу (рейтинг може складатися всіма користувачами вашого ресурсу або ж спеціальною інформацією, яка формується адміном). Основна мета - користувач повинен якомога швидше знайти релевантну інформацію.");
 });
 
 app.command('task_mobile_app@it_revolution17_bot', ctx => {
 	counter.task_mobile_app++;
-	return ctx.replyWithMarkdown(ctx.message.from.username + ", скоро буде завдання!");
+	return ctx.replyWithMarkdown("У сучасному світі нас оточує величезна кількість інформації. Кожен день, коли ми намагаємося знайти щось цікаве і актуальне, нам доводиться витрачати багато часу на перегляд контенту для вибірки того, що цікавить нас. У багатьох сферах (кіно, музика, спорт ...) цю проблему можна вирішити використовуючи систему рейтингів. Таким чином Ваше завдання полягає в побудові додатку з детальною інформацією обраної предметної області, в якому є система рейтингу (рейтинг може складатися всіма користувачами вашого ресурсу або ж спеціальною інформацією, яка формується адміном). Основна мета - користувач повинен якомога швидше знайти релевантну інформацію.");
 });
 
 app.command('task_mobile_game@it_revolution17_bot', ctx => {
 	counter.task_mobile_game++;
-	return ctx.replyWithMarkdown(ctx.message.from.username + ", скоро буде завдання!");
+	return ctx.replyWithMarkdown("Останніми роками все більшої популярності набуває AR/VR. Підтвердженням тому є підтримка та створення свого ARKit компанією Apple в одному із недавніх оновлення їх операційних систем. Але всі звикли, що при використанні цих технологій AR/VR займає ключову позицію в додатку (чи грі). Отож, ваше завдання розробити гру, в якій використовується технологія AR в нетривіальному для себе позиціонуванні. Проявляйте креативність та фантазію. Пробуйте реалізувати свої самі божевільні ідеї.");
 });
 
 app.command('games@it_revolution17_bot', ctx => {
 	counter.games++;
-	return ctx.reply("Список ігор тут...");
+	var response = game_responses[Math.floor(Math.random()*game_responses.length)];
+	return ctx.reply(ctx.message.from.username + " " + response);
 });
 
 app.command('tic_tic_tic', ctx => {
@@ -60,11 +64,16 @@ app.command('time@it_revolution17_bot', ctx => {
 
 	let time = Date.now();
 	let target_time = new Date(2017, 10, 19, 12, 0);
-	let time_in_mils = target_time - time;
-
 	counter.time++;
 
-	return ctx.replyWithMarkdown(msToTime(time_in_mils));
+	if (time > target_time){
+		return ctx.replyWithMarkdown("Час вичерпано, готуйтесь до презентації :)");	
+	} else {
+		let time_in_mils = target_time - time;
+
+		return ctx.replyWithMarkdown(msToTime(time_in_mils));
+	}
+	
 });
 
 app.command('call_org@it_revolution17_bot', ctx => {
